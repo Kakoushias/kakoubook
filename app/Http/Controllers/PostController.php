@@ -8,11 +8,18 @@ use App\Post;
 
 //Route::resource('posts', 'PostController');
 //from laravel documentation
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function getDashboard()
+    {
+        $posts = Post::orderBy('created_at', 'desc')->get();
+        return view('dashboard', ['posts' => $posts]);
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -31,11 +38,16 @@ class PostController extends Controller
      */
     public function postCreatePost(Request $request)
     {
-        //Validation
+        $this->validate($request, [
+            'body' => 'required|max:1000'
+        ]);
         $post = new Post();
         $post->body = $request['body'];
-        $request->user()->posts()->save($post);
-        return redirect('dashboard');
+        $message = 'There was an error';
+        if($request->user()->posts()->save($post)) {
+            $message = 'Post successfully created!';
+        };
+        return redirect()->route('dashboard')->with(['message' => $message]);
     }
 
     /**
@@ -66,9 +78,19 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function postEditPost(Request $request)
     {
-        //
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+        $post = Post::find($request['postId']);
+        if(Auth::user() != $post->user){
+            return redirect()->back();
+        }
+        $post->body = $request['body'];
+        $post->update();
+        return response()->json(['new_body' => $post->body], 200);
+
     }
 
     /**
@@ -89,8 +111,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function getDeletePost($post_id)
     {
-        //
+        $post = Post::where('id', $post_id)->first();
+        if(Auth::user() != $post->user){
+            return redirect()->back();
+        }
+        $post->delete();
+        return redirect()->route('dashboard')->with(['message' => 'Successfully deleted!']);
     }
 }
