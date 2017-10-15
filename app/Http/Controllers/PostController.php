@@ -120,4 +120,11 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('dashboard')->with(['message' => 'Successfully deleted!']);
     }
+
+    public function postLikePost(Request $request)
+    {
+        $post_id= $request['postId'];
+        $is_like= $request['isLike'] === 'true';
+
+    }
 }
