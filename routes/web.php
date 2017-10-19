@@ -38,6 +38,11 @@ Route::group(['middleware' => ['web']], function(){
         'as' => 'account'
     ]);
 
+    Route::get('/friends', [
+        'uses' => 'UserController@getFriends',
+        'as' => 'friends'
+    ]);
+
     Route::post('/updateaccount', [
         'uses' => 'UserController@postSaveAccount',
         'as' => 'account.save'

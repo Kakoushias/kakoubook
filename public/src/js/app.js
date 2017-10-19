@@ -28,6 +28,7 @@ $('#modal-save').on('click', function(){
 });
 
 $('.like').on('click', function(event){
+    console.log('elo');
     event.preventDefault();
     postId = event.target.parentNode.parentNode.dataset['postid'];
     var isLike = event.target.previousElementSibling == null ? true : false;
@@ -38,7 +39,12 @@ $('.like').on('click', function(event){
 
     })
         .done(function(){
-
+            event.target.innerText = isLike ? event.target.innerText == 'Like' ? 'You like this post' : 'Like' : event.target.innerText == 'Dislike' ? 'You don\'t like this post' : 'Dislike';
+            if (isLike) {
+                event.target.nextElementSibling.innerText = 'Dislike';
+            } else {
+                event.target.previousElementSibling.innerText = 'Like';
+            }
         });
 });
 

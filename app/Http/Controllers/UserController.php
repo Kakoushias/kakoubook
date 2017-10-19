@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\User;
+use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,11 @@ class UserController extends Controller
 
     public function getAccount(){
         return view('account', ['user'=>Auth::user()]);
+    }
+
+    public function getFriends(){
+        $users = User::orderBy('created_at', 'desc')->get();
+        return view('friends', ['user'=>Auth::user()], ['users' => $users]);
     }
 
     public function postSaveAccount(Request $request){
