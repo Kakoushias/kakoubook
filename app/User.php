@@ -17,4 +17,14 @@ class User extends Model implements Authenticatable
     public function likes(){
         return $this->hasMany('App\Like');
     }
+
+    public function friends(){
+        if($this->belongsToMany(User::friends(), 'friends', 'user_id', 'friend_id')){
+            return $this->belongsToMany(User::friends(), 'friends', 'user_id', 'friend_id');
+        }else {
+            return $this->belongsToMany(User::friends(), 'friends', 'friend_id', 'user_id');
+        }
+        return null;
+
+    }
 }

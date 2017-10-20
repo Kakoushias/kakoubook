@@ -40,7 +40,15 @@ Route::group(['middleware' => ['web']], function(){
 
     Route::get('/friends', [
         'uses' => 'UserController@getFriends',
-        'as' => 'friends'
+        'as' => 'friends',
+        'middleware' => 'auth'
+    ]);
+
+    Route::get('/users', [
+        'uses' => 'UserController@getUsers',
+        'as' => 'users',
+        'middleware' => 'auth'
+
     ]);
 
     Route::post('/updateaccount', [
@@ -75,6 +83,22 @@ Route::group(['middleware' => ['web']], function(){
     Route::post('/like', [
         'uses' => 'PostController@postLikePost',
         'as'=> 'like'
+    ]);
+
+    Route::get('/connect/{user_id}', [
+        'uses' => 'UserController@getConnect',
+        'as' => 'connect.users',
+        'middleware' => 'auth'
+    ]);
+
+    Route::post('/create/(user_id)', [
+        'uses' => 'PostController@postLikePost',
+        'as'=> 'like'
+    ]);
+
+    Route::post('/make-friends/(user_id)', [
+        'uses' => 'UserController@makeFriends',
+        'as'=> 'make.friends'
     ]);
 
 });

@@ -66,6 +66,36 @@ class UserController extends Controller
         return view('friends', ['user'=>Auth::user()], ['users' => $users]);
     }
 
+    public function makeFriends($user_id){
+
+        $user = Auth::user();
+        $friend= User::find('id', $user_id);
+
+        $friends = new User;
+        $friends->friends('user_id'=>$user->('id'), 'friend_id'=>$friend->('id') );
+        $friends->save;
+
+
+
+    }
+
+
+    public function getConnect($user_id){
+        $user = User::where('id', $user_id)->first();
+
+        return view('connect',['user'=>$user] );
+
+    }
+
+
+
+    public function getUsers(){
+        $users = User::orderBy('created_at', 'desc')->get();
+        return view('users', ['user'=>Auth::user()], ['users' => $users]);
+    }
+
+
+
     public function postSaveAccount(Request $request){
         $this->validate($request, [
             'first_name'=> 'required|max:120'

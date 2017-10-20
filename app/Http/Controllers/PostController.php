@@ -134,9 +134,13 @@ class PostController extends Controller
         }
         $user = Auth::user();
         $like = $user->likes()->where('post_id', $post_id)->first();
+        //checking IF i already have an entry else creating a new entry
         if($like){
+            //checking boolean if its like or dislike
             $already_like = $like->like;
+            //already got entry so setting update to true
             $update = true;
+            //to undo if i press like and its already liked i delete entry
             if ($already_like == $is_like){
                 $like->delete();
                 return null;
@@ -145,14 +149,17 @@ class PostController extends Controller
             $like = new Like();
 
         }
+        //either if we are updating or creating, passing values to new entry
         $like->like = $is_like;
         $like->user_id = $user->id;
         $like->post_id = $post->id;
+        //choosing function to use depending on if like exists
         if ($update){
             $like->update();
         } else {
             $like->save();
         }
+        //i could return a message but i will:
         return null;
 
     }

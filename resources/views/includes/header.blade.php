@@ -17,6 +17,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{route('account')}}">Account</a></li>
                     <li><a href="{{route('logout')}}">Logout</a></li>
+                    <li><a href="{{route('users')}}">Users</a></li>
                     <li><a href="{{route('friends')}}">Friends</a></li>
                 </ul>
 

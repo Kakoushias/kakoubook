@@ -48,3 +48,17 @@ $('.like').on('click', function(event){
         });
 });
 
+$('#modal-connect').on('click', function(){
+
+    $.ajax({
+        method: 'POST',
+        url: url,
+        data: {user_id: $('#user->id').val(), postId: postId, _token: token}
+    })
+        .done(function(msg){
+            $(postBodyElement).text(msg['new_body']);
+            $('#edit-modal').modal('hide');
+
+        });
+
+});
