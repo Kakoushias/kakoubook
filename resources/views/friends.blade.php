@@ -5,9 +5,9 @@
     <section class=""row new="user">
         <div class="col-md-6 col-md-offset-3">
             <header><h3>Your Friends</h3></header>
-            @foreach($users as $user)
-                <article class="user" data-postid="{{ $user->id}}">
-                    <p>{{ $user->first_name }}</p>
+            @foreach($friends as $friend)
+                <article class="friend" data-postid="{{ $friend->id}}">
+                    <p>{{ $friend->first_name }}</p>
                 </article>
             @endforeach
         </div>

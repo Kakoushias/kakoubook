@@ -6,10 +6,10 @@
         <div class="col-md-6 col-md-offset-3">
             <header><h3>Make Friends!</h3></header>
             <div>
-                <p>Would you like to connect to {{$user->first_name }}?</p>
+                <a href="{{route('make.friends', ['user_id' => $user->id])}}" class="user">Would you like to connect to {{$user->first_name }}?</a>
             </div>
 
-            <button type="submit" class="btn btn-primary" formaction="make.friends">Connect!</button>
+            {{--<button type="submit" class="btn btn-primary" formaction="make.friends">Connect!</button>--}}
             <input type="hidden" value="{{Session::token()}}" name="_token">
         </div>
 

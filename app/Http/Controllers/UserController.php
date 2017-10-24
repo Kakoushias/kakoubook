@@ -62,21 +62,18 @@ class UserController extends Controller
     }
 
     public function getFriends(){
-        $users = User::orderBy('created_at', 'desc')->get();
-        return view('friends', ['user'=>Auth::user()], ['users' => $users]);
+        $friends = Auth::user()->friends()->orderBy('created_at', 'desc')->get();
+        return view('friends', ['user'=>Auth::user()], ['friends' => $friends]);
     }
 
-    public function makeFriends($user_id){
+    public function makeFriends($friend_id){
 
         $user = Auth::user();
-        $friend= User::find('id', $user_id);
 
-        $friends = new User;
-        $friends->friends('user_id'=>$user->('id'), 'friend_id'=>$friend->('id') );
-        $friends->save;
+        $user->friends()->attach($friend_id);
 
-
-
+        return redirect()->route('users');
+        
     }
 
 
