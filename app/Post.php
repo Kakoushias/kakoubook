@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-//'foreign_key'
+
 
 class Post extends Model
 {
@@ -16,5 +16,9 @@ class Post extends Model
 
     public function likes(){
         return $this->hasMany('App/Like');
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }

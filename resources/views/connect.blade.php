@@ -5,12 +5,15 @@
     <section class=""row new="user">
         <div class="col-md-6 col-md-offset-3">
             <header><h3>Make Friends!</h3></header>
-            <div>
-                <a href="{{route('make.friends', ['user_id' => $user->id])}}" class="user">Would you like to connect to {{$user->first_name }}?</a>
-            </div>
+            <form action="{{route('make.friends')}}" method="POST">
+                <input type="hidden" value="{{$user->id}}" name="user_id">
+                <input type="text" value="" name="msg" placeholder="Say hi!" required>
+                <input type="number" value="" name="age" min="{{$user->settings['min_age']?? 15}}" max="{{$user->settings['max_age']?? 100}}" placeholder="your age" required>
 
-            {{--<button type="submit" class="btn btn-primary" formaction="make.friends">Connect!</button>--}}
+
+            <button type="submit" class="btn btn-primary">Connect!</button>
             <input type="hidden" value="{{Session::token()}}" name="_token">
+            </form>
         </div>
 
     </section>

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Comment;
 
 use App\Like;
 //from the tutorial
@@ -19,7 +20,8 @@ class PostController extends Controller
     public function getDashboard()
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
-        return view('dashboard', ['posts' => $posts]);
+        $comments = Comment::orderBy('created_at', 'desc')->get();
+        return view('dashboard', ['posts' => $posts], ['comments' => $comments]);
 
     }
 

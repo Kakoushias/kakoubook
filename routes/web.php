@@ -96,9 +96,13 @@ Route::group(['middleware' => ['web']], function(){
         'as'=> 'like'
     ]);
 
-    Route::post('/make-friends/(user_id)', [
+    Route::post('/make-friends', [
         'uses' => 'UserController@makeFriends',
         'as'=> 'make.friends'
     ]);
+
+    Route::resource('settings', 'SettingsController');
+
+    Route::resource('comment', 'CommentController');
 
 });

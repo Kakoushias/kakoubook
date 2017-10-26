@@ -23,7 +23,7 @@
                 <article class="post" data-postid="{{ $post->id}}">
                     <p>{{ $post->body }}</p>
                     <div class="info">
-                        Posted by {{ $post->user->first_name }} on {{ $post->created_at }}
+                        Posted by {{ $post->user->first_name }}, <strong>{{ $post->created_at->diffForHumans() }}</strong>.
                     </div>
                     <div class="interaction">
                         <a href="#" class="like">{{Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1
@@ -37,7 +37,57 @@
                         <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
                         @endif
                     </div>
+                    <div>
+                        @include('includes.message-block')
+                        <section class=""row new="comment">
+                            <div class="form-group">
+                                <header><h3>Your opinion?</h3></header>
+                                <form action="{{ route('comment.store') }}" method="POST">
+                                    <div class="form-group">
+                                        <textarea class="form-control" value="" name="body" id="new-post" rows="3" placeholder="Your Comment"></textarea>
+                                    </div>
+                                    <input type="hidden" value="{{auth()->user()->id}}" name="user_id">
+                                    <input type="hidden" value="{{$post['id']}}" name="post_id">
+
+                                    <button type="submit" class="btn btn-primary">Create Post</button>
+                                    <input type="hidden" value="{{Session::token()}}" name="_token">
+                                </form>
+
+                            </div>
+
+                        </section>
+                    </div>
+                    <section class="row posts">
+                        <div class="form-group">
+                            <header><h4>Comments about this Post...</h4></header>
+                            <hr>
+                            @foreach($comments as $comment)
+                                @if($post->id == $comment['post_id'])
+                                <article class="comment" data-postid="{{ $comment->id}}">
+                                    <p>{{ $comment->body }}</p>
+                                    <div class="info">
+                                        Posted by {{ $comment->user->first_name }}, <strong>{{ $comment->created_at->diffForHumans() }}</strong>.
+                                    </div>
+                                    <!-- <div class="interaction">
+                                        <a href="#" class="like">{{Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1
+                        ? 'You like this post' : 'Like' : 'Like' }}</a>  |
+                                        <a href="#" class="like">{{Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0
+                        ? 'You don\'tlike this post' : 'Dislike' : 'Dislike' }}</a>
+ -->
+                                        <!-- @if(Auth::user() == $comment->user)
+                                            |
+                                            <a href="#" class="edit">Edit</a> |
+                                            <a href="{{route('post.delete', ['post_id' => $post->id])}}">Delete</a>
+                                        @endif -->
+                                    </div>
+                                </article>
+                                <hr>
+                                @endif
+                            @endforeach
+                        </div>
+                    </section>
                 </article>
+                <hr>
             @endforeach
         </div>
     </section>

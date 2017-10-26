@@ -18,6 +18,13 @@ class UserController extends Controller
 
     public function postSignUp(Request $request)
     {
+
+//        $user_id = $request['user_id'];
+//
+//        User::where('id', '=', $user_id)->update([
+//            'first_name' => $request['first_name']
+//        ]);
+
         $this->validate($request, [
             'email' => 'email|unique:users',
             'first_name' => 'required|max:120',
@@ -66,14 +73,16 @@ class UserController extends Controller
         return view('friends', ['user'=>Auth::user()], ['friends' => $friends]);
     }
 
-    public function makeFriends($friend_id){
+    public function makeFriends(Request $request){
+
 
         $user = Auth::user();
 
-        $user->friends()->attach($friend_id);
+        $user->friends()->attach($request['user_id']);
+
 
         return redirect()->route('users');
-        
+
     }
 
 
