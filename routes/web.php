@@ -91,6 +91,12 @@ Route::group(['middleware' => ['web']], function(){
         'middleware' => 'auth'
     ]);
 
+    Route::get('/profile/{user_id}', [
+        'uses' => 'UserController@getProfile',
+        'as' => 'profile',
+        'middleware' => 'auth'
+    ]);
+
     Route::post('/create/(user_id)', [
         'uses' => 'PostController@postLikePost',
         'as'=> 'like'

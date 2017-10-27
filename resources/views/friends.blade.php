@@ -10,7 +10,7 @@
                 @foreach($friends as $friend)
                     <li class="list-group-item">
                         <article class="friend" data-postid="{{ $friend->id}}">
-                            <p><strong>{{ $friend->first_name }}</strong></p>
+                            <a href="{{route('profile', ['user_id' => $friend->id])}}" class="user"><strong>{{ $friend->first_name }}</strong></a>
                         </article>
                         <div class="info">
                             Became friends at  <strong>{{ $friend->created_at}}</strong>.

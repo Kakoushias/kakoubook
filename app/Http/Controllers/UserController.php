@@ -73,6 +73,16 @@ class UserController extends Controller
         return view('friends', ['user'=>Auth::user()], ['friends' => $friends]);
     }
 
+    public function getProfile($user_id){
+
+        $user = User::where('id', $user_id)->first();
+        //$settings = $user()->settings()->get();
+        //dd([$settings]);
+        return view('profile', ['user'=>$user], ['settings'=> $user->settings]);
+    }
+
+
+
     public function makeFriends(Request $request){
 
 

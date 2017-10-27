@@ -7,10 +7,7 @@ use App\Post;
 use App\Comment;
 
 use App\Like;
-//from the tutorial
 
-//Route::resource('posts', 'PostController');
-//from laravel documentation
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;

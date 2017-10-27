@@ -26,6 +26,11 @@ class User extends Model implements Authenticatable
         }
     }
 
+    public function settings(){
+
+        return $this->hasOne(Settings::class);
+    }
+
     public function comments(){
         return $this->hasMany(Comment::class);
     }
