@@ -116,8 +116,16 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($group_id)
     {
-        //
+        //dd((string)$group_id);
+        $group = Group::where('id', $group_id)->first();
+        // if(Auth::user() != $group->creator()){
+        //     return redirect()->back();
+        // }
+
+
+        $group->delete();
+        return redirect()->route('group.index')->with(['message' => 'Successfully deleted!']);
     }
 }
