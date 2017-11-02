@@ -34,4 +34,16 @@ class User extends Model implements Authenticatable
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+
+    public function groups(){
+        return $this->belongsToMany(Group::class, 'groupables', 'user_id', 'group_id');
+    }
+
+    // public function groupables(){
+        
+    //         return $this->belongsToMany(Group::class, 'groupables', 'user_id');
+        
+    // }
+
+
 }

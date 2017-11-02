@@ -78,7 +78,8 @@ class UserController extends Controller
         $user = User::where('id', $user_id)->first();
         //$settings = $user()->settings()->get();
         //dd([$settings]);
-        return view('profile', ['user'=>$user], ['settings'=> $user->settings]);
+        //['settings'=> $user->settings]
+        return view('profile', ['user'=>$user]);
     }
 
 

@@ -18,6 +18,7 @@
                     <li><a href="{{route('account')}}">Account <br> <div align="center"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span></div> </a></li>
                     <li><a href="{{route('users')}}">Users <br> <div align="center"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></div> </a></li>
                     <li><a href="{{route('friends')}}">Friends <br> <div align="center"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></div> </a></li>
+                    <li><a href="{{route('group.index')}}">Groups <br> <div align="center"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></div> </a></li>
                     <li><a href="{{route('settings.create')}}">Settings <br> <div align="center"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></div> </a></li>
                     <li><a href="{{route('logout')}}">Logout <br> <div align="center"><span class="glyphicon glyphicon-off" aria-hidden="true"></span></div> </a></li>
 

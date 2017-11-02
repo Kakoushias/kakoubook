@@ -107,8 +107,22 @@ Route::group(['middleware' => ['web']], function(){
         'as'=> 'make.friends'
     ]);
 
+    Route::get('/groupconnect/{group_id}', [
+        'uses' => 'GroupController@getConnect',
+        'as' => 'group.connect',
+        'middleware' => 'auth'
+    ]);
+
+    Route::post('/group-join/{group_id}', [
+        'uses' => 'GroupController@groupJoin',
+        'as'=> 'group.join'
+    ]);
+
     Route::resource('settings', 'SettingsController');
 
     Route::resource('comment', 'CommentController');
+
+    Route::resource('group', 'GroupController');
+
 
 });
