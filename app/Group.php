@@ -13,7 +13,7 @@ class Group extends Model
 
     public function users(){
         
-        return $this->belongsToMany(Group::class, 'groupables', 'group_id', 'user_id');
+        return $this->belongsToMany(User::class, 'groupables', 'group_id', 'user_id');
     }
 
 

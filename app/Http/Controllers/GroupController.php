@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Like;
 use App\Group;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -51,7 +50,7 @@ class GroupController extends Controller
         $group->creator()->associate($request['user_id']);
         $group->save();
 
-        // $user->friends()->attach($request['user_id']);
+        
 
 
         return redirect()->route('group.index');
@@ -60,8 +59,12 @@ class GroupController extends Controller
     public function getConnect($group_id){
 
         $group = Group::where('id', $group_id)->first();
+        $users = $group->users()->orderBy('created_at', 'desc')->get();
+
+        //dd($users);
         
-        return view('groupconnect', ['user'=>Auth::user()], ['group' => $group]);
+        
+        return view('groupconnect', ['user'=> Auth::user()], compact('group', 'users'));
 
     }
 

@@ -1,11 +1,8 @@
 <?php
-
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+class ReadingList{
 
-class Books extends Model
-{
     protected $stack;
     protected $limit;
     
